@@ -1,21 +1,22 @@
 #!/usr/bin/Rscript --vanilla
 library(gtools); # needed for dirichlet distribution
 
-errSD=10; # 1 gives medium dispersion, 5 looks totally random
-         # 0.1 looks almost perfectly linear
+#errSD=10; # 1 gives medium dispersion, 5 looks totally random
+           # 0.1 looks almost perfectly linear
 
 args <- commandArgs(TRUE)
-if(length(args)!=7) {
-   cat("usage: <#observables> <#latents> <#classes> <#individuals> <out.model> <out.observable> <out.latent>\n");
+if(length(args)!=8) {
+   cat("usage: <#observables> <#latents> <#classes> <#individuals> <err-sd> <out.model> <out.observable> <out.latent>\n");
    q(status=1)
 }
 numObservables <- as.numeric(args[1]);
 numLatent <- as.numeric(args[2]);
 numClasses <- as.numeric(args[3]);
 numIndiv <- as.numeric(args[4]);
-modelFile <- args[5];
-dataFile <- args[6];
-latentFile <- args[7]
+errSD <- as.numeric(args[5]);
+modelFile <- args[6];
+dataFile <- args[7];
+latentFile <- args[8];
 
 # Generate latent variable distributions
 latentMeans <- matrix(nrow=numClasses,ncol=numLatent); # [class][variable]
