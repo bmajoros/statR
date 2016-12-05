@@ -22,6 +22,3 @@ load <- fit$loadings[,1:2]
 plot(load,type="n") # set up plot 
 text(load,labels=names(mydata),cex=.7) # add variable names
 
-
-
-
