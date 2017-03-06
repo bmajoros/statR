@@ -5,12 +5,10 @@
 NUM_TRIALS <- 10000
 ALPHA <- 0.05
 
+pvalues <- rep(0,100)
 for(N in seq(10,400,10)) {
-    numSignificant <- 0
     for(i in 1:NUM_TRIALS) {
         # Generate purely random data
-        #Xs <- runif(N,0,100)
-        #Ys <- runif(N,0,100)
         Xs <- rnorm(N,0,100)
         Ys <- rnorm(N,0,100)
         matrix <- cbind(Xs,Ys)
@@ -27,11 +25,17 @@ for(N in seq(10,400,10)) {
         interceptEst <- model$coefficients[[1]]
         betaEst <- model$coefficients[[2]]
         p <- pf(f,df1-1,df2,lower.tail=FALSE)
-        if(p<=ALPHA) {
+        pvalues[[i]] <- p
+    }
+    pvalues <- p.adjust(pvalues)
+    numSignificant <- 0
+    for(i in 1:NUM_TRIALS) {
+        if(pvalues[i]<=ALPHA) {
             numSignificant <- numSignificant+1
         }
     }
     sig <- numSignificant/NUM_TRIALS
     cat(paste(N,sig,"\n"))
 }
+
 
