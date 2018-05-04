@@ -29,7 +29,7 @@ nonrandomModel <- function(N) {
 countSignificant <- function(pvalues,alpha) {
     num <- 0
     for(i in 1:length(pvalues)) {
-        if(pvalues[i]<=ALPHA) { num <- num+1 } }
+        if(pvalues[i]<=alpha) { num <- num+1 } }
     return(num) }
 positives <- array() ; negatives <- array()
 for(N in seq(10,400,10)) {
